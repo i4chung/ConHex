@@ -8,7 +8,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 /**
- * for n*n*n hex board:
+ * for [n*n*n] hex board:
  *  - (0,0,0) is center
  *  - (-n,0,n) is top
  *  - (-n,n,0) is top right

@@ -7,11 +7,12 @@ import com.i4chung.conhex.game.tiles.Tile
 import kotlin.math.abs
 
 class Board {
-    var groundCells = mutableMapOf<HexCord, Tile>()
+    var groundCells = mutableMapOf<HexCord, GroundTile>()
+    var placedCells = mutableMapOf<HexCord, Tile>()
 
     fun reset(){
         // create 6*6*6 hex cell board
-        // iterate x+y+z = 0 for  -6 <= x,y,z <=6
+        // iterate x+y+z = 0 for  -5 <= x,y,z <=5
         for (x in -BOARD_MAX_INDEX..BOARD_MAX_INDEX) {
             for (y in -BOARD_MAX_INDEX..BOARD_MAX_INDEX) {
                 val z = -(x + y)
@@ -26,8 +27,18 @@ class Board {
      * returns if player can place a tile on a Cell in the given HexCord
      */
     fun isPlaceable(cord: HexCord): Boolean {
+        if(
+            groundCells[cord] == null ||
+            placedCells[cord] != null ||
+            isConnected(cord)
+        ) return false
+        return false
+    }
+
+    private fun isConnected(cord: HexCord): Boolean{
+        if(groundCells[cord]?.isStarting == true) return true
         Direction.values().forEach {
-            if (groundCells[cord.getNeighbor(it)] is PlayerTile) return true
+            if (placedCells[cord.getNeighbor(it)] is PlayerTile) return true
         }
         return false
     }
@@ -35,6 +46,7 @@ class Board {
     @Composable
     fun GameBoard() {
         groundCells.forEach { (cord, tile) -> tile.DrawTile(cord) }
+        placedCells.forEach { (cord, tile) -> tile.DrawTile(cord) }
     }
 
     companion object {
