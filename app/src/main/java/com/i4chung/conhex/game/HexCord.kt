@@ -67,6 +67,19 @@ data class HexCord(
         return HexCord(x + cord.x, y + cord.y, z + cord.z)
     }
 
+    fun rotate(direction: TurnDirection, count: Int = 1): HexCord {
+        var result = this.copy()
+
+        for(i in 1..count){
+            result = when(direction){
+                TurnDirection.Clockwise -> HexCord(-y,-z,-x)
+                TurnDirection.CounterClockwise -> HexCord(-z,-x,-y)
+            }
+        }
+
+        return result
+    }
+
     fun toDisposition(): Pair<Double, Double> {
         val angle = PI / 3
         val horizontal = (x + z) * cos(angle) - y * sin(angle)
@@ -76,6 +89,10 @@ data class HexCord(
     }
 }
 
-enum class Direction{
+enum class TurnDirection {
+    Clockwise, CounterClockwise
+}
+
+enum class Direction {
     Top, RightTop, RightBottom, Bottom, LeftBottom, LeftTop,
 }

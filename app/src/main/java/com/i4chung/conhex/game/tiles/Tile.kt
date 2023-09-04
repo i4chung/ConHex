@@ -7,7 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -23,7 +22,7 @@ interface Tile {
     fun getColor(): ColorFilter? = null
 
     @Composable
-    fun DrawTile(cord: HexCord){
+    fun Draw(cord: HexCord){
         val (x, y) = cord.toDisposition()
 
         Image(

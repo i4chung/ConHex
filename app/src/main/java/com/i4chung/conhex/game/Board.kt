@@ -7,6 +7,8 @@ import com.i4chung.conhex.game.tiles.Tile
 import kotlin.math.abs
 
 class Board {
+    // TODO: on tile refresh, empty [groundCells]
+    // TODO: once tile flipping animation is done, re-fill the groundCells
     var groundCells = mutableMapOf<HexCord, GroundTile>()
     var placedCells = mutableMapOf<HexCord, Tile>()
 
@@ -45,8 +47,8 @@ class Board {
 
     @Composable
     fun GameBoard() {
-        groundCells.forEach { (cord, tile) -> tile.DrawTile(cord) }
-        placedCells.forEach { (cord, tile) -> tile.DrawTile(cord) }
+        groundCells.forEach { (cord, tile) -> tile.Draw(cord) }
+        placedCells.forEach { (cord, tile) -> tile.Draw(cord) }
     }
 
     companion object {
